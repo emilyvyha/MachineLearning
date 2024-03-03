@@ -1,67 +1,24 @@
-<div>Teachable Machine Image Model - p5.js and ml5.js</div>
-<script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/addons/p5.dom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
-<script type="text/javascript">
-  // Classifier Variable
-  let classifier;
-  // Model URL
-  let imageModelURL = './';
-  
-  // Video
-  let video;
-  let flippedVideo;
-  // To store the classification
-  let label = "";
-
-  // Load the model first
-  function preload() {
-    classifier = ml5.imageClassifier(imageModelURL + 'model.json');
-  }
-
-  function setup() {
-    createCanvas(320, 260);
-    // Create the video
-    video = createCapture(VIDEO);
-    video.size(320, 240);
-    video.hide();
-
-    flippedVideo = ml5.flipImage(video);
-    // Start classifying
-    classifyVideo();
-  }
-
-  function draw() {
-    background(0);
-    // Draw the video
-    image(flippedVideo, 0, 0);
-
-    // Draw the label
-    fill(255);
-    textSize(16);
-    textAlign(CENTER);
-    text(label, width / 2, height - 4);
-  }
-
-  // Get a prediction for the current video frame
-  function classifyVideo() {
-    flippedVideo = ml5.flipImage(video)
-    classifier.classify(flippedVideo, gotResult);
-    flippedVideo.remove();
-
-  }
-
-  // When we get a result
-  function gotResult(error, results) {
-    // If there is an error
-    if (error) {
-      console.error(error);
-      return;
-    }
-    // The results are in an array ordered by confidence.
-    // console.log(results[0]);
-    label = results[0].label;
-    // Classifiy again!
-    classifyVideo();
-  }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Sign Machine Learning</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/addons/p5.dom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
+    <script src="sketch.js" defer></script> <!-- Reference to sketch.js -->
+</head>
+<body>
+    <!-- This div is optional and can be used for any additional HTML content -->
+    <div id="app" style="text-align: center;">
+        <h1>Teachable Machine Image Model For Traffic Signs</h1>
+        <p>This is a p5.js sketch using a pre-trained image classification model to differentiate between stop signs, do not enter signs, and yield signs. The three classes were chosen as they pose a problem for many due to being red. At a glance, drivers may mistake them for each other if not paying attention or driving too fast to see clearly.</p>
+        <!-- File upload input -->
+        <input type="file" id="uploadInput" accept="image/*">
+        <!-- Submit button -->
+        <button onclick="uploadFile()">Upload Image</button>
+    </div>
+    <!-- Display area for classification results -->
+    <div id="resultDiv" style="text-align: center; margin-top: 20px;"></div>
+</body>
+</html>
