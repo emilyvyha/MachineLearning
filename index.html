@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Traffic Sign Machine Learning</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto; /* Center the canvas horizontally */
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/addons/p5.dom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
@@ -12,13 +18,20 @@
     <!-- This div is optional and can be used for any additional HTML content -->
     <div id="app" style="text-align: center;">
         <h1>Teachable Machine Image Model For Traffic Signs</h1>
-        <p>This is a p5.js sketch using a pre-trained image classification model to differentiate between stop signs, do not enter signs, and yield signs. The three classes were chosen as they pose a problem for many due to being red. At a glance, drivers may mistake them for each other if not paying attention or driving too fast to see clearly.</p>
+        <p style="width: 800px; margin: 0 auto;">This is a p5.js sketch using a pre-trained image classification model to differentiate between stop signs, do not enter signs, and yield signs. The three classes were chosen as they pose a problem for many due to being red. At a glance, drivers may mistake them for each other if not paying attention or driving too fast to see clearly.</p>
         <!-- File upload input -->
+        <br>
+        <p style="font-weight: bold; color: red;">Upload an image to test the model</p>
+        <br>
         <input type="file" id="uploadInput" accept="image/*">
         <!-- Submit button -->
-        <button onclick="uploadFile()">Upload Image</button>
+        <button onclick="uploadFile()">Submit Image</button>
     </div>
     <!-- Display area for classification results -->
-    <div id="resultDiv" style="text-align: center; margin-top: 20px;"></div>
+    <br>
+    <div style="text-align: center; font-weight: bold;">
+        <div id="resultDiv" style="text-align: center; margin-top: 20px;"></div>
+        <p style="color: red">Live Video to test the model</p>
+    </div>
 </body>
 </html>
